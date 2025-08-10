@@ -1,0 +1,58 @@
+﻿@model List<PruebaTecnicaBookRadar.Models.HistorialBusqueda>
+
+@{
+    ViewData["Title"] = "Historial de búsquedas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card">
+            <div class="card-header">
+                Historial de búsquedas
+            </div>
+            <div class="card-body" id="CardHistorial">
+                <table id="TablaHistorial" class="table table-bordered table-striped">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Autor</th>
+                            <th>Título</th>
+                            <th>Año</th>
+                            <th>Editorial</th>
+                            <th>Fecha de Consulta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var libro in Model)
+                        {
+                            <tr>
+                                <td>@libro.Autor</td>
+                                <td>@libro.Titulo</td>
+                                <td>@libro.AnioPublicacion</td>
+                                <td>@libro.Editorial</td>
+                                <td>@libro.FechaConsulta.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#TablaHistorial').DataTable({
+                ordering: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'Todos']
+                ]
+            });
+        });
+    </script>
+}

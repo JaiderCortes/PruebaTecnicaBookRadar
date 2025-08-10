@@ -1,0 +1,22 @@
+CREATE LOGIN UserBookRadar WITH PASSWORD = 'testbookradar%2025';
+
+CREATE DATABASE DB_BOOKRADAR;
+
+GO
+
+USE DB_BOOKRADAR;
+
+GO
+
+CREATE USER UserBookRadar FOR LOGIN UserBookRadar;
+
+ALTER ROLE db_owner ADD MEMBER UserBookRadar;
+
+CREATE TABLE HistorialBusquedas(
+	 Id INT PRIMARY KEY IDENTITY(1, 1),
+	 Autor NVARCHAR(100) NULL,
+	 Titulo NVARCHAR(200) NULL,
+	 AnioPublicacion INT NULL,
+	 Editorial NVARCHAR(100) NULL,
+	 FechaConsulta DATETIME NULL
+)

@@ -1,0 +1,77 @@
+﻿@model List<PruebaTecnicaBookRadar.Models.LibroViewModel>
+
+@{
+    ViewData["Title"] = "Búsqueda de libros por autor";
+}
+
+<style>
+    .btn-height {
+        height: calc(3.5rem + 2px);
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center font-weight-light my-4">
+                Búsqueda de libros por autor
+            </h2>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-action="Index" onsubmit="return ValidarEntrada()">
+                <div class="input-group mb-3">
+                    <div class="form-floating flex-grow-1">
+                        <input class="form-control" id="autor" name="autor" type="text" placeholder="Nombre del autor" />
+                        <label for="autor">Autor</label>
+                    </div>
+                    <button class="btn btn-primary btn-height" type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card mt-1">
+        <div class="card">
+            <div class="card-header">
+                Resultados de búsqueda
+            </div>
+            <div class="card-body" id="CardResultados">
+                @if (Model != null && Model.Any())
+                {
+                    <h6>Libros encontrados: @Model.Count</h6>
+                    <table id="TablaResultados" class="table table-bordered table-striped">
+                        <thead class="table-info">
+                            <tr>
+                                <th>Título</th>
+                                <th>Año de publicación</th>
+                                <th>Editorial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var libro in Model)
+                            {
+                                <tr>
+                                    <td>@libro.Titulo</td>
+                                    <td>@libro.AnioPublicacion</td>
+                                    <td>@libro.Editorial</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function ValidarEntrada() {
+            var autor = document.getElementById("autor").value.trim();
+            if (!autor) {
+                flashy('Por favor, ingrese un nombre de autor para la búsqueda.', 'warning');
+                return false;
+            }
+            return true;
+        }
+    </script>
+}
